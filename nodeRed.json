@@ -1,0 +1,282 @@
+[
+    {
+        "id": "ec6fcfd821dd30ef",
+        "type": "tab",
+        "label": "Tarefa - Atividade 6",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1322aab1b45f82a3",
+        "type": "mqtt in",
+        "z": "ec6fcfd821dd30ef",
+        "name": "Qnt Ração",
+        "topic": "projetoiot/QntRacao",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "130809132119274c",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 180,
+        "wires": [
+            [
+                "6d304a6abba3efdc",
+                "d55e45d2fb1e46c8"
+            ]
+        ]
+    },
+    {
+        "id": "6d304a6abba3efdc",
+        "type": "influxdb out",
+        "z": "ec6fcfd821dd30ef",
+        "influxdb": "b9c5e048e3dd387a",
+        "name": "QntRação",
+        "measurement": "Refeição",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "bf6695ca624d9f3a",
+        "bucket": "aula_iot",
+        "x": 700,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "d55e45d2fb1e46c8",
+        "type": "debug",
+        "z": "ec6fcfd821dd30ef",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "87de8a68c2f3b45f",
+        "type": "mqtt in",
+        "z": "ec6fcfd821dd30ef",
+        "name": "Pote de ração",
+        "topic": "projetoiot/PoteRacao",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "130809132119274c",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 240,
+        "wires": [
+            [
+                "d55e45d2fb1e46c8",
+                "d0459ff122153361"
+            ]
+        ]
+    },
+    {
+        "id": "7954529065073dc5",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "ec6fcfd821dd30ef",
+        "name": "Alerta de reabastecimento",
+        "credtype": "account",
+        "account": "da7dbb5ebd0f1d8a",
+        "text": "payload",
+        "phonenumbervalue": "",
+        "apikeyvalue": "",
+        "apikeyinputtypemessage": "msg",
+        "phonenumberinputtypemessage": "msg",
+        "inputtypemessage": "msg",
+        "rejectssl": false,
+        "x": 790,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d0459ff122153361",
+        "type": "function",
+        "z": "ec6fcfd821dd30ef",
+        "name": "Alerta de ração!",
+        "func": "var mensagem1 = msg.payload[0];\n\nmsg.payload = \"Hora de reabastecer! \" +\n\"O pote de ração de seu animal está com \"+ mensagem1+\"g!\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 200,
+        "wires": [
+            [
+                "7954529065073dc5"
+            ]
+        ]
+    },
+    {
+        "id": "bc79375f977c3758",
+        "type": "mqtt in",
+        "z": "ec6fcfd821dd30ef",
+        "name": "Qnt Água",
+        "topic": "projetoiot/QntAgua",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "130809132119274c",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 420,
+        "wires": [
+            [
+                "d55e45d2fb1e46c8",
+                "90d1c4d89a077342"
+            ]
+        ]
+    },
+    {
+        "id": "9cc6804aa7ad1ba0",
+        "type": "mqtt in",
+        "z": "ec6fcfd821dd30ef",
+        "name": "Pote de água",
+        "topic": "projetoiot/PoteAgua",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "130809132119274c",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 360,
+        "wires": [
+            [
+                "d55e45d2fb1e46c8",
+                "8fc9ace0aef035b1"
+            ]
+        ]
+    },
+    {
+        "id": "8fc9ace0aef035b1",
+        "type": "function",
+        "z": "ec6fcfd821dd30ef",
+        "name": "Alerta de água!",
+        "func": "var mensagem1 = msg.payload[0];\n\nmsg.payload = \"Hora de reabastecer! \" +\n\"O pote de água de seu animal está com \"+ mensagem1+\"ml!\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 420,
+        "wires": [
+            [
+                "2699a580c6824181"
+            ]
+        ]
+    },
+    {
+        "id": "2699a580c6824181",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "ec6fcfd821dd30ef",
+        "name": "Alerta de reabastecimento",
+        "credtype": "account",
+        "account": "da7dbb5ebd0f1d8a",
+        "text": "payload",
+        "phonenumbervalue": "",
+        "apikeyvalue": "",
+        "apikeyinputtypemessage": "msg",
+        "phonenumberinputtypemessage": "msg",
+        "inputtypemessage": "msg",
+        "rejectssl": false,
+        "x": 790,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "90d1c4d89a077342",
+        "type": "influxdb out",
+        "z": "ec6fcfd821dd30ef",
+        "influxdb": "b9c5e048e3dd387a",
+        "name": "QntÁgua",
+        "measurement": "Água",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "bf6695ca624d9f3a",
+        "bucket": "aula_iot",
+        "x": 700,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "130809132119274c",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b9c5e048e3dd387a",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "database",
+        "name": "Grupo1",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "https://us-east-1-1.aws.cloud2.influxdata.com",
+        "timeout": "10",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "da7dbb5ebd0f1d8a",
+        "type": "node-red-contrib-whatsapp-cmb-account",
+        "name": ""
+    }
+]
